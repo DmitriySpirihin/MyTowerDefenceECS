@@ -1,11 +1,9 @@
-using NUnit.Framework;
 using Unity.Entities;
 using Unity.Mathematics;
 
 public struct CAsteroidSpawner : IComponentData
 {
     // префаб и основная точка спавна
-    public Entity prefab;
     public SpawnArea spawnArea;
     // параметры спавна
     public float spawnXAbsOffset;// 0 середина
@@ -21,4 +19,12 @@ public struct CAsteroidSpawner : IComponentData
     public float maxRotationSpeed;
     public float minAcceleration;
     public float maxAcceleration;
+    public float minScale;
+    public float maxScale;
+    public ushort baseDurability;
+}
+
+public struct AsteroidPrefab : IBufferElementData
+{
+    public Entity Value;
 }

@@ -148,15 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898dccd95cd74cc44b1ee57bb3f9c5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidSpawnerAuthoring
-  prefab: {fileID: 8991806771334919763, guid: 293c06979417b194b9e104f2f807d6cc, type: 3}
+  prefab:
+  - {fileID: 4077328871203466419, guid: 293c06979417b194b9e104f2f807d6cc, type: 3}
+  - {fileID: 2826788288911554073, guid: 736208ec4eeabce469a3162afb97ee21, type: 3}
   spawnConfig: {fileID: 11400000, guid: d529fcf2098c8c5449bf5c68b2d8b387, type: 2}
-  spawnRate: 0.7
-  minMovementSpeed: 1
-  maxMovementSpeed: 2
-  minRotationSpeed: 1
-  maxRotationSpeed: 2
-  minAcceleration: 0.01
-  maxAcceleration: 0.02
+  spawnRate: 0.2
+  minMovementSpeed: 4.5
+  maxMovementSpeed: 11.5
+  minRotationSpeed: 0.3
+  maxRotationSpeed: 2.8
+  minAcceleration: 0.11
+  maxAcceleration: 0.48
+  minScale: 0.1
+  maxScale: 1.5
+  baseDurability: 1
 --- !u!4 &560187504
 Transform:
   m_ObjectHideFlags: 0

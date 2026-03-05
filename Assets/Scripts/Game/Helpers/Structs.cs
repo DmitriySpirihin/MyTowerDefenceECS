@@ -8,3 +8,4 @@ public struct SpawnArea
     public float2 yRange;
     public float2 zRange;
 }
+

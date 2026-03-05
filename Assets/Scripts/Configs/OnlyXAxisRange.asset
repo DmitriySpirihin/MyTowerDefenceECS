@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnRangeConfigSO
   spawnArea:
     xRange:
-      x: -5
-      y: 5
+      x: -8
+      y: 8
     yRange:
       x: 0
       y: 0
