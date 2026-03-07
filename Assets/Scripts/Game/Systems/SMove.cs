@@ -9,15 +9,22 @@ public partial struct SMove : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        float deltaTime = SystemAPI.Time.DeltaTime;
+        // Schedule the job to run on all available CPU cores
+        new MoveJob { deltaTime = SystemAPI.Time.DeltaTime }.Run();
+    }
 
-        // находим сущности со всеми указанными компонентами.
-        foreach (var (moveable, transform, destructible) in SystemAPI.Query<RefRW<CMoveable>, RefRW<LocalTransform>, RefRO<CDestructible>>())
+    [BurstCompile]
+    public partial struct MoveJob : IJobEntity
+    {
+        public float deltaTime;
+
+        // Query entities with the required components in parallel
+        public void Execute(ref CMoveable moveable, ref LocalTransform transform, in CDestructible destructible)
         {
-            if (destructible.ValueRO.isDestructed) continue; 
-            //накапливаем ускорение
-            moveable.ValueRW.speed += moveable.ValueRO.acceleration * deltaTime;
-            transform.ValueRW.Position += moveable.ValueRO.direction * moveable.ValueRO.speed * deltaTime;
+            if (destructible.isDestructed) return;
+
+            moveable.speed += moveable.acceleration * deltaTime;
+            transform.Position += moveable.direction * moveable.speed * deltaTime;
         }
     }
 }

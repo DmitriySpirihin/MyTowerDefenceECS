@@ -149,10 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidSpawnerAuthoring
   prefab:
-  - {fileID: 4077328871203466419, guid: 293c06979417b194b9e104f2f807d6cc, type: 3}
   - {fileID: 2826788288911554073, guid: 736208ec4eeabce469a3162afb97ee21, type: 3}
   spawnConfig: {fileID: 11400000, guid: d529fcf2098c8c5449bf5c68b2d8b387, type: 2}
-  spawnRate: 0.2
+  spawnRate: 0.005
   minMovementSpeed: 4.5
   maxMovementSpeed: 11.5
   minRotationSpeed: 0.3

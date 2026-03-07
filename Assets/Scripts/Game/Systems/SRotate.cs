@@ -9,15 +9,26 @@ public partial struct SRotate : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        float deltaTime = SystemAPI.Time.DeltaTime;
+        // Schedule the job to run across all CPU cores
+        new RotateJob { DeltaTime = SystemAPI.Time.DeltaTime }.Run();
+    }
 
-        // находим сущности со всеми указанными компонентами.
-        foreach (var (rotateable, transform, destructible) in SystemAPI.Query<RefRW<CRotateable>, RefRW<LocalTransform>, RefRO<CDestructible>>())
+    [BurstCompile]
+    public partial struct RotateJob : IJobEntity
+    {
+        public float DeltaTime;
+
+        // Execute runs in parallel for every entity matching these components
+        public void Execute(ref LocalTransform transform, in CRotateable rotateable, in CDestructible destructible)
         {
-            if (destructible.ValueRO.isDestructed) continue; 
+            // Skip logic for destroyed asteroids
+            if (destructible.isDestructed) return;
+
+            // Calculate rotation increment: Axis * Speed * Time
+            quaternion deltaRotation = quaternion.Euler(rotateable.axis * rotateable.speed * DeltaTime);
             
-            // простое вращение для визуала
-            transform.ValueRW.Rotation = math.mul(transform.ValueRO.Rotation, quaternion.Euler( rotateable.ValueRO.speed * rotateable.ValueRO.axis * deltaTime));
+            // Multiply current rotation by delta (order matters: New * Old)
+            transform.Rotation = math.mul(transform.Rotation, deltaRotation);
         }
     }
 }

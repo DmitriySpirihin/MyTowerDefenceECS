@@ -2,6 +2,7 @@ using Unity.Entities;
 using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Unity.Rendering;
 using Unity.Burst;
 
 
@@ -19,10 +20,9 @@ public partial struct SAsteroidSpawner : ISystem
             return;
         }
         // Получаем доступ на чтение и запись RefRW
-        RefRW<CAsteroidSpawner> spawner = SystemAPI.GetComponentRW<CAsteroidSpawner>(entity);
-
-        // Allocator.Temp - память выделена временно и должна быть освобождена вручную
-        using EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
+        var spawner = SystemAPI.GetSingletonRW<CAsteroidSpawner>();
+        var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
+        var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
 
         // Проверяем, настало ли время следующего спавна
         // SystemAPI.Time.ElapsedTime - глобальное время симуляции
@@ -44,6 +44,11 @@ public partial struct SAsteroidSpawner : ISystem
             //Генерируем характеристики через диапазоны из спавнера
             // Прочность в зависимости от размера
             ushort newDurability = (ushort)(spawner.ValueRO.baseDurability * scale);
+            float4 randomColor = new float4( spawner.ValueRW.random.NextFloat(0.6f, 1.0f), spawner.ValueRW.random.NextFloat(0.6f, 1.0f),spawner.ValueRW.random.NextFloat(0.6f, 1.0f), 1.0f);
+            ecb.AddComponent(newEntity, new AsteroidColorProperty { Value = randomColor });
+            ecb.AddComponent(newEntity, new AsteroidTintProperty { Value = spawner.ValueRW.random.NextFloat(0.1f, 0.4f) });
+            ecb.AddComponent(newEntity, new AsteroidDisplaceProperty { Value = 0.1f });
+            ecb.AddComponent(newEntity, new AsteroidNoiseProperty { Value = spawner.ValueRW.random.NextFloat(0.6f, 1.2f)});
             ecb.AddComponent(newEntity, new CDamageable{
                durability = newDurability,
                armor = 0
@@ -66,9 +71,6 @@ public partial struct SAsteroidSpawner : ISystem
             // Обновляем время следующего спавна
             spawner.ValueRW.nextSpawnTime = (float)SystemAPI.Time.ElapsedTime + spawner.ValueRO.spawnRate;
 
-            // Применяем накопленные команды буфера к EntityManager
-            // Это синхронизирует изменения с основным миром
-            ecb.Playback(state.EntityManager);
         }
     }
 
@@ -85,3 +87,15 @@ public partial struct SAsteroidSpawner : ISystem
         result = spawnPosition;
     }
 }
+
+[MaterialProperty("_BaseColor")]
+public struct AsteroidColorProperty : IComponentData { public float4 Value; }
+
+[MaterialProperty("_TintStrength")]
+public struct AsteroidTintProperty : IComponentData { public float Value; }
+
+[MaterialProperty("_DisplaceStrength")]
+public struct AsteroidDisplaceProperty : IComponentData { public float Value; }
+
+[MaterialProperty("_NoiseScale")]
+public struct AsteroidNoiseProperty : IComponentData { public float Value; }
