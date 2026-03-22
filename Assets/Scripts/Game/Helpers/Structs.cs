@@ -1,11 +1,17 @@
 using Unity.Mathematics;
+using Unity.Entities;
 using System;
 
-[Serializable]
-public struct SpawnArea
+// for array of GO
+public struct AsteroidPrefab : IBufferElementData
 {
-    public float2 xRange; 
-    public float2 yRange;
-    public float2 zRange;
+    public Entity Value;
 }
 
+// Flag component to mark entyity as randomizable
+public struct CInitializationTag : IComponentData {}
+public struct CPlayerTag : IComponentData {}
+public struct CEnemyTag : IComponentData {}
+public struct CProjectileTag : IComponentData {}
+public struct CCollectibleTag : IComponentData {}
+public struct CFriendly : IComponentData {}

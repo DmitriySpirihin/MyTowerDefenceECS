@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba29c77e12f4bb44f8b4fd01cb9d1c82, type: 3}
+  m_Name: Asteroid
+  m_EditorClassIdentifier: Assembly-CSharp::EntityComponentsHolderSO
+  Modules:
+  - {fileID: 11400000, guid: 1d25d821edddd2845b38d32dfe194505, type: 2}
+  - {fileID: 11400000, guid: 5d3de7365a5489f49b8d5b7ddea38658, type: 2}
+  - {fileID: 11400000, guid: 1e761e06b6e243f41a211ce5545d31aa, type: 2}
+  - {fileID: 11400000, guid: f92c67a8dfa765042bc44e85edd9f759, type: 2}
+  - {fileID: 11400000, guid: d8a076790eff6ee44ab7cc85bfd3903e, type: 2}
+  - {fileID: 11400000, guid: a79729dd370336c4d93720e20c5c9ce1, type: 2}
+  - {fileID: 11400000, guid: c56d57de2c6f34e40afd5b1597650f7f, type: 2}
+  NeedsInitialization: 1

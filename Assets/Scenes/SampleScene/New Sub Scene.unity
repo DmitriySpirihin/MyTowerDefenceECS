@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 560187504}
-  - component: {fileID: 560187503}
+  - component: {fileID: 560187505}
   m_Layer: 0
   m_Name: AsteroidSpawner
   m_TagString: Untagged
@@ -136,31 +136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &560187503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560187502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 898dccd95cd74cc44b1ee57bb3f9c5d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AsteroidSpawnerAuthoring
-  prefab:
-  - {fileID: 2826788288911554073, guid: 736208ec4eeabce469a3162afb97ee21, type: 3}
-  spawnConfig: {fileID: 11400000, guid: d529fcf2098c8c5449bf5c68b2d8b387, type: 2}
-  spawnRate: 0.005
-  minMovementSpeed: 4.5
-  maxMovementSpeed: 11.5
-  minRotationSpeed: 0.3
-  maxRotationSpeed: 2.8
-  minAcceleration: 0.11
-  maxAcceleration: 0.48
-  minScale: 0.1
-  maxScale: 1.5
-  baseDurability: 1
 --- !u!4 &560187504
 Transform:
   m_ObjectHideFlags: 0
@@ -176,8 +151,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &560187505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560187502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1029a7cdd9f5044fac8f89f31861e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UniversalEntitySpawner
+  spawnConfig: {fileID: 11400000, guid: d529fcf2098c8c5449bf5c68b2d8b387, type: 2}
+  prefab: {fileID: 2826788288911554073, guid: 736208ec4eeabce469a3162afb97ee21, type: 3}
+  spawnOnStart: 1
+--- !u!1 &570772595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570772596}
+  - component: {fileID: 570772597}
+  m_Layer: 0
+  m_Name: BulletSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &570772596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570772595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &570772597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570772595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1029a7cdd9f5044fac8f89f31861e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UniversalEntitySpawnerAuthoring
+  spawnConfig: {fileID: 11400000, guid: 55449070fc75630409f06fee3aba48a9, type: 2}
+  prefab: {fileID: 4202904001260822998, guid: 8e0760f3249774942bd57c07b19f07d6, type: 3}
+  spawnOnStart: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 560187504}
+  - {fileID: 570772596}

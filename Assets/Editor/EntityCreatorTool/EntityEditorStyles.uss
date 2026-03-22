@@ -1,0 +1,126 @@
+/* --- GLOBAL THEME --- */
+:root {
+    --bg-dark: rgba(20, 20, 25, 0.96);
+    --accent-gold: #f1c40f;
+    --accent-purple: #a29bfe;
+    --accent-neon: #3effa6;
+    --accent-cyan: #00d2ff;
+}
+.node #selection-border {
+    border-width: 0px;
+    visibility: hidden;
+}
+/* --- BASE NODE ARCHITECTURE --- */
+.node #node-border {
+    border-radius: 14px;
+    border-width: 1px;
+    background-color: var(--bg-dark);
+    padding: 1px;
+    /* Simulate 3D Depth */
+    border-bottom-width: 5px;
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+    transition: 0.15s all;
+}
+
+/* Master Node specific glow */
+.master-node #node-border {
+    border-color: rgba(241, 196, 15, 0.5);
+    border-bottom-color: var(--accent-gold);
+    min-width: 400px;
+    min-height: 300px;
+}
+
+/* Component Node specific glow */
+.component-node #node-border {
+    border-color: rgba(162, 155, 254, 0.4);
+    border-bottom-color: var(--accent-purple);
+}
+
+/* --- TITLE BAR RE-DESIGN --- */
+#title {
+    height: 36px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin-bottom: 2px;
+    /* Horizontal gradient feel */
+    background-color: rgba(255, 255, 255, 0.03);
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+#title > Label {
+    -unity-font-style: bold;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding-left: 10px;
+    color: #e0e0e0;
+}
+
+/* --- PORTS (The DOTS Connectors) --- */
+.port {
+    height: 24px;
+    padding: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    margin: 2px 6px;
+}
+
+.port:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Customizing the Port Labels */
+.port > Label {
+    font-size: 10px;
+    color: #999;
+}
+
+/* SELECTION & INTERACTION */
+.node:hover #node-border {
+    border-color: var(--accent-neon);
+    margin-top: -2px;
+    margin-bottom: 2px;
+}
+
+.node:selected #node-border {
+    border-width: 2px;
+    border-color: var(--accent-cyan);
+    border-bottom-color: var(--accent-cyan);
+}
+
+/* --- THE EXTENSION AREA (The Inspector) --- */
+#extension {
+    background-color: rgba(10, 10, 12, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 6px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Styling the Inspector inside the Node */
+#extension .unity-base-field__label {
+    color: #888;
+
+}
+
+#extension .unity-base-field__input {
+    background-color: #1a1a1c;
+    border-radius: 4px;
+    border-color: #333;
+    min-width: 50px;
+}
+EntityCreatorGraph {
+    background-color: transparent;
+    flex-grow: 1;
+}
+
+/* Force the grid to have high-contrast colors so we can see it */
+#Grid {
+    --grid-background-color: #101113; /* Dark slate */
+    --line-color: rgba(47, 34, 76, 0.344);
+    --thick-line-color: rgba(56, 78, 126, 0.375);
+    --spacing: 25;
+    /* Ensure it doesn't have a solid background hiding itself */
+    background-color: transparent; 
+}

@@ -19,9 +19,8 @@ public partial struct SMove : ISystem
         public float deltaTime;
 
         // Query entities with the required components in parallel
-        public void Execute(ref CMoveable moveable, ref LocalTransform transform, in CDestructible destructible)
+        public void Execute(ref CMoveable moveable, ref LocalTransform transform)
         {
-            if (destructible.isDestructed) return;
 
             moveable.speed += moveable.acceleration * deltaTime;
             transform.Position += moveable.direction * moveable.speed * deltaTime;

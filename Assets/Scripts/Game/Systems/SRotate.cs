@@ -9,26 +9,31 @@ public partial struct SRotate : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        // Schedule the job to run across all CPU cores
-        new RotateJob { DeltaTime = SystemAPI.Time.DeltaTime }.Run();
+        float deltaTime = SystemAPI.Time.DeltaTime;
+        
+        // Initializing job and pass required data
+        var rotateJob = new RotateJob 
+        { 
+            DeltaTime = deltaTime 
+        };
+        
+        // Scheduling the job to run parallel
+        // Assigning to state.Dependency to maintain proper job ordering
+        state.Dependency = rotateJob.ScheduleParallel(state.Dependency);
     }
 
     [BurstCompile]
     public partial struct RotateJob : IJobEntity
     {
         public float DeltaTime;
-
-        // Execute runs in parallel for every entity matching these components
-        public void Execute(ref LocalTransform transform, in CRotateable rotateable, in CDestructible destructible)
+        
+        // Execute method runs in parallel for each entity matching the component query
+        public void Execute(ref LocalTransform transform, in CRotateable rotateable)
         {
-            // Skip logic for destroyed asteroids
-            if (destructible.isDestructed) return;
+            float t = math.min(rotateable.speed * DeltaTime, 1.0f);
+            quaternion frameRotation = math.slerp(quaternion.identity, rotateable.randomAngle, DeltaTime);
 
-            // Calculate rotation increment: Axis * Speed * Time
-            quaternion deltaRotation = quaternion.Euler(rotateable.axis * rotateable.speed * DeltaTime);
-            
-            // Multiply current rotation by delta (order matters: New * Old)
-            transform.Rotation = math.mul(transform.Rotation, deltaRotation);
+            transform.Rotation = math.mul(frameRotation, transform.Rotation);
         }
     }
 }
