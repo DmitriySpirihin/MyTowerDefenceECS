@@ -11,7 +11,7 @@ description here
 | Entities editor|
 | :--- |
 | ![Tool](/bandicam%202026-03-23%2009-09-50-495.jpg) |
-| *Entities editor* |
+| *Позволяет собирать компоненты как конструктор* |
 ---
 
 ## 🏗 Архитектурный стек (Advanced Patterns)
