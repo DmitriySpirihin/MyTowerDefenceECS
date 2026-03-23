@@ -8,11 +8,10 @@ description here
 ## 📸 Скриншоты
 
 
-| Главное меню | Бой | Победа | Log | Инфо |
-| :--- | :--- | :--- | :--- | :--- |
-| ![Главное меню](/Main%20menu.jpg) | ![Бой](/Battle.jpg) | ![Победа](/Final%20panel.jpg) | ![Победа](/Battle%20log.jpg) | ![7 batches](/info.jpg) |
-| *Выбор формаций и предпросмотр* | *Ближний бой 20 на 20* | *Статистика* | *Log* | *Оптимизация* |
-
+| Entities editor|
+| :--- |
+| ![Tool](/Main%20menu.jpg) |
+| *Entities editor* |
 ---
 
 ## 🏗 Архитектурный стек (Advanced Patterns)
