@@ -10,7 +10,7 @@ description here
 
 | Entities editor|
 | :--- |
-| ![Tool](/Main%20menu.jpg) |
+| ![Tool](/bandicam%202026-03-23%2009-09-50-495.jpg) |
 | *Entities editor* |
 ---
 
