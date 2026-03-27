@@ -15,7 +15,9 @@ public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
         _entityCreatorGraph = entityCreatorGraph;
         _editorWindow = editorWindow;
     }
-
+    
+    //The list of configs
+    //We can add new configs SO here
     public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
     {
         var tree = new List<SearchTreeEntry>

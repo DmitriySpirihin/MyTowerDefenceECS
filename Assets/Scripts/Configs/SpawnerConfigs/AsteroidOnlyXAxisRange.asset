@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aca71e1f7c4516a4f99e342ee00774e5, type: 3}
-  m_Name: OnlyXAxisRange
+  m_Name: AsteroidOnlyXAxisRange
   m_EditorClassIdentifier: Assembly-CSharp::SpawnRangeConfigSO
+  prefab: {fileID: 2826788288911554073, guid: 736208ec4eeabce469a3162afb97ee21, type: 3}
   spawnArea:
     xRange:
       x: -8

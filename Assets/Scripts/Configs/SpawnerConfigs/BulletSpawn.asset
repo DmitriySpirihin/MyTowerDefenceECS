@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca71e1f7c4516a4f99e342ee00774e5, type: 3}
   m_Name: BulletSpawn
   m_EditorClassIdentifier: Assembly-CSharp::SpawnConfigSO
+  prefab: {fileID: 4202904001260822998, guid: 8e0760f3249774942bd57c07b19f07d6, type: 3}
   spawnArea:
     xRange:
-      x: -1
-      y: 1
+      x: 0
+      y: 0
     yRange:
       x: 0
       y: 0
@@ -23,11 +24,11 @@ MonoBehaviour:
       x: 0
       y: 0
   mode: 2
-  type: 0
+  type: 3
   tick: 0.2
-  waveTick: 5
+  waveTick: 1
   isSpawnTickNow: 1
-  burstCount: 2
+  burstCount: 1
   gridStep: 1
   distributionCurve:
     serializedVersion: 2

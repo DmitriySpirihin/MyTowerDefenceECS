@@ -14,7 +14,8 @@ public class MasterNode : Node
     public MasterNode(EntityComponentsHolderSO config)
     {
         Config = config;
-        title = "Entity Components Container";
+        var name = config.Name ?? "New entity";
+        title = name;
         AddToClassList("master-node");
 
         var port = CreatePort(Direction.Input, Port.Capacity.Multi, typeof(ScriptableObject));

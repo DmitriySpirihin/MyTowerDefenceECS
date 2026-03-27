@@ -4,6 +4,7 @@ using GameEnums;
 [CreateAssetMenu(fileName = "SpawnConfigSO", menuName = "Configs/Game/SpawnConfig")]
 public class SpawnConfigSO : ScriptableObject
 {
+    public GameObject prefab;
     public SpawnArea spawnArea;
     public SpawnMode mode = SpawnMode.Random;
     public SpawnType type = SpawnType.Endless;

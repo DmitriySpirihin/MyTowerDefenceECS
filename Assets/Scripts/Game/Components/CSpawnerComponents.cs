@@ -6,7 +6,7 @@ public struct SpawnerData : IComponentData
 {
     public Entity prefabEntity;
     public bool spawnOnStart;
-    public SpawnType spawnType;      // OneTime, Endless, Wave
+    public SpawnType spawnType;      // OneTime, Endless, Wave, PlayerFire
     public SpawnMode spawnMode;      // Random, Burst, Grid, Curve
     public SpawnArea spawnArea;      // Defines spawn bounds
     public uint seed;

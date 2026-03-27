@@ -1,79 +1,23 @@
-using Unity.Entities;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Entities;
 using Unity.Mathematics;
-
+using Unity.Transforms;
 
 [BurstCompile]
 public partial struct SUniversalInitSystem : ISystem
 {
-    private ComponentLookup<CRotateableRandom> _randomLookup;
-    private ComponentLookup<CRotateable> _rotateableLookup;
-    private ComponentLookup<CScaleRandom> _scaleRandomLookUp;
-    private ComponentLookup<Unity.Transforms.LocalTransform> _transformLookup;
-    private ComponentLookup<CMoveable> _moveableLookup;
-    private ComponentLookup<CMoveableRandom> _moveableRandomLookup;
-    private ComponentLookup<CDisplaceProperty> _displaceLookup;
-    private ComponentLookup<CDisplaceRandom> _displaceRandomLookup;
-    private ComponentLookup<CNoiseProperty> _noiseLookup;
-    private ComponentLookup<CNoiseRandom> _noiseRandomLookup;
-    private ComponentLookup<CTintProperty> _tintLookup;
-    private ComponentLookup<CTintRandom> _tintRandomLookup;
-
-    public void OnCreate(ref SystemState state)
-    {
-        _randomLookup = state.GetComponentLookup<CRotateableRandom>(true);
-        _rotateableLookup = state.GetComponentLookup<CRotateable>(true);
-        _scaleRandomLookUp = state.GetComponentLookup<CScaleRandom>(true);
-        _transformLookup = state.GetComponentLookup<Unity.Transforms.LocalTransform>(true);
-        _moveableRandomLookup = state.GetComponentLookup<CMoveableRandom>(true);
-        _moveableLookup = state.GetComponentLookup<CMoveable>(true);
-        _displaceLookup = state.GetComponentLookup<CDisplaceProperty>(true);
-        _displaceRandomLookup = state.GetComponentLookup<CDisplaceRandom>(true);
-        _noiseLookup = state.GetComponentLookup<CNoiseProperty>(true);
-        _noiseRandomLookup = state.GetComponentLookup<CNoiseRandom>(true);
-        _tintLookup = state.GetComponentLookup<CTintProperty>(true);
-        _tintRandomLookup = state.GetComponentLookup<CTintRandom>(true);
-        
-        state.RequireForUpdate<CInitializationTag>();
-    }
-
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecb = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-        
-        _randomLookup.Update(ref state);
-        _rotateableLookup.Update(ref state);
-        _scaleRandomLookUp.Update(ref state);
-        _transformLookup.Update(ref state);
-        _moveableRandomLookup.Update(ref state);
-        _moveableLookup.Update(ref state);
-        _displaceLookup.Update(ref state);
-        _displaceRandomLookup.Update(ref state);
-        _noiseLookup.Update(ref state);
-        _noiseRandomLookup.Update(ref state);
-        _tintLookup.Update(ref state);
-        _tintRandomLookup.Update(ref state);
+        var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+        var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
 
-        var initJob = new InitJob 
-        { 
-            SeedBase = (uint)(SystemAPI.Time.ElapsedTime * 1000),
-            ECB = ecb.AsParallelWriter(),
-            rotatableRandomLookUp = _randomLookup,
-            rotatableLookUp = _rotateableLookup,
-            scaleRandomLookUp = _scaleRandomLookUp,
-            transformLookUp = _transformLookup,
-            moveableLookUp = _moveableLookup,
-            moveableRandomLookUp = _moveableRandomLookup,
-
-            // Pass to job
-            displaceLookup = _displaceLookup,
-            displaceRandomLookup = _displaceRandomLookup,
-            noiseLookup = _noiseLookup,
-            noiseRandomLookup = _noiseRandomLookup,
-            tintLookup = _tintLookup,
-            tintRandomLookup = _tintRandomLookup
+        // Schedule the job
+        var initJob = new InitJob
+        {
+            SeedBase = (uint)(SystemAPI.Time.ElapsedTime * 1000) + (uint)state.GlobalSystemVersion,
+            ECB = ecb.AsParallelWriter()
         };
 
         state.Dependency = initJob.ScheduleParallel(state.Dependency);
@@ -86,96 +30,78 @@ public partial struct InitJob : IJobEntity
     public uint SeedBase;
     public EntityCommandBuffer.ParallelWriter ECB;
 
-    [ReadOnly] public ComponentLookup<CRotateableRandom> rotatableRandomLookUp;
-    [ReadOnly] public ComponentLookup<CRotateable> rotatableLookUp;
-    [ReadOnly] public ComponentLookup<CScaleRandom> scaleRandomLookUp;
-    [ReadOnly] public ComponentLookup<Unity.Transforms.LocalTransform> transformLookUp;
-    [ReadOnly] public ComponentLookup<CMoveable> moveableLookUp;
-    [ReadOnly] public ComponentLookup<CMoveableRandom> moveableRandomLookUp;
-    [ReadOnly] public ComponentLookup<CDisplaceProperty> displaceLookup;
-    [ReadOnly] public ComponentLookup<CDisplaceRandom> displaceRandomLookup;
-    [ReadOnly] public ComponentLookup<CNoiseProperty> noiseLookup;
-    [ReadOnly] public ComponentLookup<CNoiseRandom> noiseRandomLookup;
-    [ReadOnly] public ComponentLookup<CTintProperty> tintLookup;
-    [ReadOnly] public ComponentLookup<CTintRandom> tintRandomLookup;
-
-    public void Execute(Entity entity, [EntityIndexInQuery] int sortKey, in CInitializationTag initTag)
+    [BurstCompile]
+    public void Execute(
+        Entity entity, 
+        [EntityIndexInQuery] int sortKey, 
+        EnabledRefRW<CInitializationTag> initTag,
+        RefRW<CMoveable> moveable, 
+        RefRO<CMoveableRandom> moveableRandom,
+        RefRW<CRotateable> rotateable, 
+        RefRO<CRotateableRandom> rotateableRandom,
+        RefRW<LocalTransform> transform, 
+        RefRO<CScaleRandom> scaleRandom,
+        RefRW<CDisplaceProperty> displace, 
+        RefRO<CDisplaceRandom> displaceRandom,
+        RefRW<CNoiseProperty> noise, 
+        RefRO<CNoiseRandom> noiseRandom,
+        RefRW<CTintProperty> tint, 
+        RefRO<CTintRandom> tintRandom
+    )
     {
-        uint seed = SeedBase + (uint)entity.Index;
+        uint seed = math.hash(new uint2(SeedBase, (uint)entity.Index));
 
-        // Rotation
-        if (rotatableRandomLookUp.HasComponent(entity))
+        //Move Randomization
+        if (moveableRandom.IsValid)
         {
-            var rotateableRandom = rotatableRandomLookUp[entity];
-            var rotateable = rotatableLookUp[entity];
-            
-            // Perform the logic
-            rotateableRandom.Randomize(seed, ref rotateable);
-
-            // Use ECB to update the component since lookups are ReadOnly for Parallel
-            ECB.SetComponent(sortKey, entity, rotateable);
-            ECB.RemoveComponent<CRotateableRandom>(sortKey, entity);
-        }
-        // Scale
-        if (scaleRandomLookUp.HasComponent(entity))
-        {
-            var scaleRandom = scaleRandomLookUp[entity];
-            
-            float newScale = scaleRandom.GetScale(seed);
-
-            if (transformLookUp.HasComponent(entity))
-            {
-                var transform = transformLookUp[entity];
-                transform.Scale = newScale; 
-                ECB.SetComponent(sortKey, entity, transform);
-            }
-            ECB.RemoveComponent<CScaleRandom>(sortKey, entity);
-        }
-        // move
-        if (moveableRandomLookUp.HasComponent(entity))
-        {
-            var movableRandom = moveableRandomLookUp[entity];
-            var moveable = moveableLookUp[entity];
-            // Perform the logic
-            movableRandom.Randomize(seed, ref moveable);
-            // Use ECB to update the component since lookups are ReadOnly for Parallel
-            ECB.SetComponent(sortKey, entity, moveable);
+            moveableRandom.ValueRO.Randomize(seed, ref moveable.ValueRW);
             ECB.RemoveComponent<CMoveableRandom>(sortKey, entity);
         }
 
-        // Displace
-        if (displaceRandomLookup.HasComponent(entity))
+        //Rotation Randomization
+        if (rotateable.IsValid && rotateableRandom.IsValid)
         {
-            var randomData = displaceRandomLookup[entity];
-            var property = displaceLookup[entity];
-            randomData.Randomize(seed, ref property);
-            ECB.SetComponent(sortKey, entity, property);
+            rotateableRandom.ValueRO.Randomize(seed, ref rotateable.ValueRW);
+            ECB.RemoveComponent<CRotateableRandom>(sortKey, entity);
+        }
+
+        //Scale Randomization
+        if (transform.IsValid && scaleRandom.IsValid)
+        {
+            transform.ValueRW.Scale = scaleRandom.ValueRO.GetScale(seed);
+            ECB.RemoveComponent<CScaleRandom>(sortKey, entity);
+        }
+
+        // Displace Randomization
+        if (displace.IsValid && displaceRandom.IsValid)
+        {
+            displaceRandom.ValueRO.Randomize(seed, ref displace.ValueRW);
             ECB.RemoveComponent<CDisplaceRandom>(sortKey, entity);
         }
 
-        // Noise
-        if (noiseRandomLookup.HasComponent(entity))
+        // Noise Randomization
+        if (noise.IsValid && noiseRandom.IsValid)
         {
-            var randomData = noiseRandomLookup[entity];
-            var property = noiseLookup[entity];
-            randomData.Randomize(seed, ref property);
-            ECB.SetComponent(sortKey, entity, property);
+            noiseRandom.ValueRO.Randomize(seed, ref noise.ValueRW);
             ECB.RemoveComponent<CNoiseRandom>(sortKey, entity);
         }
 
-        // Tint
-        if (tintRandomLookup.HasComponent(entity))
+        //Tint Randomization
+        if (tint.IsValid && tintRandom.IsValid)
         {
-            var randomData = tintRandomLookup[entity];
-            var property = tintLookup[entity];
-            randomData.Randomize(seed, ref property);
-            ECB.SetComponent(sortKey, entity, property);
+            tintRandom.ValueRO.Randomize(seed, ref tint.ValueRW);
             ECB.RemoveComponent<CTintRandom>(sortKey, entity);
         }
 
+        // Turn off the initialization tag
+        initTag.ValueRW = false;
+        
+        //Cleanup of the tag to keep chunks clean
         ECB.RemoveComponent<CInitializationTag>(sortKey, entity);
     }
 }
+
+
 
 
 

@@ -14,12 +14,12 @@ public class ComponentNode : Node
     {
         Config = config;
 
-        title = "Entity's Component";
+        title = config.Name();
         AddToClassList("component-node");
 
         var port = CreatePort(Direction.Output, Port.Capacity.Single, typeof(ScriptableObject));
         port.portName = "Out";
-        inputContainer.Add(port);
+        outputContainer.Add(port);
 
         var inspector = new InspectorElement(config);
         extensionContainer.Add(inspector);

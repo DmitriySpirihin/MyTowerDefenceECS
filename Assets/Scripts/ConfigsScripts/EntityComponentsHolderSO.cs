@@ -6,7 +6,10 @@ using GameEnums;
 [CreateAssetMenu(fileName = "SpawnRangeConfigSO", menuName = "Configs/Entities/EntityComponentsHolder")]
 public class EntityComponentsHolderSO : ScriptableObject
 {
-    [HideInInspector]public List<BaseEntityConfigSO> Modules = new();
+    public string Name = "New entity";
+    
+    [HideInInspector]
+    public List<BaseEntityConfigSO> Modules = new();
 
     [Header ("Use this flag if need to randomize one or more component's values")]
     public bool NeedsInitialization;
@@ -16,14 +19,14 @@ public class EntityComponentsHolderSO : ScriptableObject
 
     public virtual void Bake(IBaker baker, Entity entity)
     {
-        if(NeedsInitialization) 
-            baker.AddComponent(entity, new CInitializationTag{});
+        if(NeedsInitialization)
+        {
+            baker.AddComponent<CInitializationTag>(entity);
+            baker.SetComponentEnabled<CInitializationTag>(entity, true);
+        }
+            
         switch (Type)
         {
-            case EntityType.Player:
-                baker.AddComponent(entity, new CPlayerTag{});
-            break;
-
             case EntityType.Enemy:
                 baker.AddComponent(entity, new CEnemyTag{});
             break;

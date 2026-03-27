@@ -102,4 +102,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c365b9faca2bab44aeaa14c828cfe8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UniversalEntityAuthoring
-  entityConfig: {fileID: 11400000, guid: 3d10dfc8c5571f74386e6aef4c9e7909, type: 2}
+  entityConfig: {fileID: 11400000, guid: 4b414b1c98aa26546bef8f3eca878607, type: 2}

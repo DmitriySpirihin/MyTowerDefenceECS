@@ -4,7 +4,6 @@ using UnityEngine;
 public class UniversalEntitySpawnerAuthoring : MonoBehaviour
 {
     [SerializeField] private SpawnConfigSO spawnConfig;
-    [SerializeField] private GameObject prefab;
     [SerializeField] private bool spawnOnStart = true;
     
     public class Baker : Baker<UniversalEntitySpawnerAuthoring>
@@ -14,7 +13,7 @@ public class UniversalEntitySpawnerAuthoring : MonoBehaviour
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
             var area = authoring.spawnConfig != null ? authoring.spawnConfig.spawnArea : default;
             
-            Entity prefabEntity = GetEntity(authoring.prefab, TransformUsageFlags.Dynamic);
+            Entity prefabEntity = GetEntity(authoring.spawnConfig.prefab, TransformUsageFlags.Dynamic);
             
             
             // Add spawnerData component and copy data from config

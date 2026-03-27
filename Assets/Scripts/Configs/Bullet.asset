@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7900867991022950351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d937e154f22bed34da0defe41d60043b, type: 3}
+  m_Name: ScaleConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::ScaleConfigSO
+  NeedsInitialization: 0
+  nodePositionInEditor: {x: -698.6666, y: -44.666664}
+  Range: {x: 1, y: 1}
+  Scale: 1.79
+--- !u!114 &-6680152046416526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3346a749f1ef804fb407188b9fb2969, type: 3}
+  m_Name: DamageableConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::DamageableConfigSO
+  NeedsInitialization: 0
+  nodePositionInEditor: {x: -605.3333, y: 238}
+  Range: {x: 1, y: 1}
+  Hp: 34
+  Armor: 1
+  ArmorDamageReduce: 0.5
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba29c77e12f4bb44f8b4fd01cb9d1c82, type: 3}
+  m_Name: Bullet
+  m_EditorClassIdentifier: Assembly-CSharp::EntityComponentsHolderSO
+  Name: Bullet
+  Modules:
+  - {fileID: 8557977561068412378}
+  - {fileID: -6680152046416526}
+  - {fileID: -7900867991022950351}
+  - {fileID: 6828722118789319427}
+  NeedsInitialization: 0
+  Type: 4
+--- !u!114 &6828722118789319427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ca9e8c560e8bb4e87a98ef7603f405, type: 3}
+  m_Name: TintConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::TintConfigSO
+  NeedsInitialization: 0
+  nodePositionInEditor: {x: -304, y: -195.33333}
+  Range: {x: 1, y: 1}
+  tint: 1
+--- !u!114 &8557977561068412378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8957f3f5d8e96b84f95577c1e5b19e6a, type: 3}
+  m_Name: BaseColorConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::BaseColorConfigSO
+  NeedsInitialization: 0
+  nodePositionInEditor: {x: -385.33334, y: 519.3333}
+  Range: {x: 1, y: 1}
+  baseColor: {r: 0.25368845, g: 0.4921328, b: 0.7987421, a: 1}

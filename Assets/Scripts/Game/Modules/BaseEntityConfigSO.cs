@@ -7,6 +7,10 @@ public abstract class BaseEntityConfigSO : ScriptableObject
     [Tooltip ("Use this flag to mark the entity for InitializationSystem to randomize needed values")]
     public bool NeedsInitialization;
 
+    // Editor only property
+    [HideInInspector]
+    public Vector2 nodePositionInEditor;
+
     [Tooltip("Min Max ranges for randomizer")]
     public Vector2 Range = Vector2.one;
     public virtual void Bake(IBaker baker, Entity entity)

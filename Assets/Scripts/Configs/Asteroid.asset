@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6056760603897388847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ca9e8c560e8bb4e87a98ef7603f405, type: 3}
+  m_Name: TintConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::TintConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: 549.3334, y: 100}
+  Range: {x: 0.1, y: 0.3}
+  tint: 0.2
+--- !u!114 &-3814905390066850838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ff6fd08e2d56f46a5707e475178373, type: 3}
+  m_Name: RotateConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::RotateConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: -374.6667, y: 630.6667}
+  Range: {x: 1, y: 3}
+  Speed: 1
+--- !u!114 &-2347854507172023106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8957f3f5d8e96b84f95577c1e5b19e6a, type: 3}
+  m_Name: BaseColorConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::BaseColorConfigSO
+  NeedsInitialization: 0
+  nodePositionInEditor: {x: -142.66666, y: -148}
+  Range: {x: 1, y: 1}
+  baseColor: {r: 0.46540874, g: 0.43401173, b: 0.3673509, a: 1}
+--- !u!114 &-116931416925035175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4371d8e7e7427df4eb00ae3da942740c, type: 3}
+  m_Name: NoiseConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::NoiseConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: 207.33334, y: -148}
+  Range: {x: 1.2, y: 1.6}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba29c77e12f4bb44f8b4fd01cb9d1c82, type: 3}
+  m_Name: Asteroid
+  m_EditorClassIdentifier: Assembly-CSharp::EntityComponentsHolderSO
+  Name: Asteroid
+  Modules:
+  - {fileID: -2347854507172023106}
+  - {fileID: 3055948595590234319}
+  - {fileID: 4303387276146840122}
+  - {fileID: 7405759188337230342}
+  - {fileID: -116931416925035175}
+  - {fileID: -3814905390066850838}
+  - {fileID: 5846621184171206006}
+  - {fileID: -6056760603897388847}
+  NeedsInitialization: 1
+  Type: 2
+--- !u!114 &3055948595590234319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3346a749f1ef804fb407188b9fb2969, type: 3}
+  m_Name: DamageableConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::DamageableConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: 100, y: 476}
+  Range: {x: 30, y: 100}
+  Hp: 82
+  Armor: 1
+  ArmorDamageReduce: 0.6
+--- !u!114 &4303387276146840122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551855a402518a34d8c901d8f8225355, type: 3}
+  m_Name: DisplaceConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::DisplaceConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: 536.6667, y: -134}
+  Range: {x: 0.7, y: 1}
+  displace: 0.862
+--- !u!114 &5846621184171206006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d937e154f22bed34da0defe41d60043b, type: 3}
+  m_Name: ScaleConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::ScaleConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: -400.6667, y: 76.666664}
+  Range: {x: 0.6, y: 2}
+  Scale: 1
+--- !u!114 &7405759188337230342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4396bbb47ce247c4d8631e90cb3d8029, type: 3}
+  m_Name: MoveConfigSO
+  m_EditorClassIdentifier: Assembly-CSharp::MoveConfigSO
+  NeedsInitialization: 1
+  nodePositionInEditor: {x: -440, y: 324}
+  Range: {x: 6, y: 10}
+  Speed: 6
+  Acceleration: 1.1
+  Direction: {x: 0, y: 0, z: -1}

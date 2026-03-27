@@ -39,28 +39,41 @@ public class EntityCreatorWindow : EditorWindow
         var toolbar = new Toolbar();
         var addBtn = new Button(() =>
         {
-            // Checking if there is already masterNode
-            var masterNode = _graphView.nodes.ToList().OfType<MasterNode>().FirstOrDefault();
-            if (masterNode != null) return;
+            if (!EditorUtility.DisplayDialog("New Entity", "Create a new entity? Unsaved changes will be lost.", "Yes", "No"))
+                return;
+
             config = CreateInstance<EntityComponentsHolderSO>();
-            var node = new MasterNode(config);
-            _graphView.AddElement(node);
-        }){text = "Add master container for components"};
+
+            _graphView.LoadFromMasterConfig(config);
+        }){text = "Add new entity"};
         
         // save asset button
         var saveBtn = new Button(() =>
         {
             if(config == null) return;
+            if (AssetDatabase.Contains(config))
+            {
+                Debug.Log($"The asset {config.Name} is already exists");
+                return;
+            }
 
-            string path = EditorUtility.SaveFilePanelInProject("Save master config", "NewEntityConfig", "asset", "Select save location");
+            string path = EditorUtility.SaveFilePanelInProject("Save master config", config.Name.Length > 0 ? config.Name : "New entity", "asset", "Select save location");
             if (!string.IsNullOrEmpty(path))
             {
                 AssetDatabase.CreateAsset(config, path);
                 AssetDatabase.SaveAssets();
-                Console.WriteLine($"Saved to {path}");
+                foreach (var module in config.Modules)
+                {
+                    if (module != null)
+                    {
+                        AssetDatabase.AddObjectToAsset(module, config);
+                    }
+                }
+                EditorApplication.ExecuteMenuItem("File/Save");
+                Debug.Log($"Saved to {path}");
             }
 
-        }){text = "Save asset"};
+        }){text = "Save entity config"};
         
         _graphView.AddSearchWindow(this);
 
@@ -92,6 +105,4 @@ public class EntityCreatorWindow : EditorWindow
             }
         } };
     }
-
-    
 }

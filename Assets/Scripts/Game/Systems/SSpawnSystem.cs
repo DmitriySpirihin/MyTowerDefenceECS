@@ -63,6 +63,16 @@ public partial struct SSpawnSystem : ISystem
                         spawner.isSpawnTickNow = false;
                     }
                 break;
+
+                case SpawnType.PlayerFire:
+                // Spawn a burst every 'waveTick' seconds
+                    var playerState = SystemAPI.GetSingleton<CGlobalPlayerState>();
+                    if (elapsedTime >= spawner.nextSpawnTime && playerState.IsFiring)
+                    {
+                        shouldSpawn = true;
+                        spawner.nextSpawnTime = elapsedTime + spawner.tick;
+                    }
+                break;
             }
             
             if (shouldSpawn)
